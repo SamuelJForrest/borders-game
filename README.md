@@ -3,6 +3,7 @@
 (Add introduction here)
 
 - Give Rest Countries a shouout
+- Change the rules of the game: it should be a game in which you are given the country, but have to guess the borders.
 
 ## Releases
 
