@@ -1,9 +1,11 @@
+/* Variables */
 .main-country {
   width: 100%;
 }
 
 .main-country-image {
   margin-bottom: 10px;
+  border: 1px solid grey;
 }
 
 .main-country-image img {
@@ -19,5 +21,19 @@
   text-align: center;
   font-weight: 700;
   font-size: 2rem;
+}
+
+.border-country-image {
+  margin-bottom: 10px;
+}
+
+.border-country-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border: 1px solid grey;
 }
 /*# sourceMappingURL=style.css.map */
