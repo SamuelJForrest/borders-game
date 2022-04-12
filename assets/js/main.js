@@ -1,26 +1,21 @@
 const mainCountryImage = document.querySelector(".main-country-image img");
 const borderCountries = document.querySelector(".border-countries");
-const borderCard = `
-    <div class="col-4 border-country">
-        <div class="border-country-image">
-            <img src="" alt="">
-        </div>
-        <div class="border-country-text">
-            <p>test</p>
-        </div>
-    </div>
-`;
+
+const setFirstClue = () => {
+  const firstCountry = document.querySelectorAll(".border-country");
+  firstCountry[0].removeAttribute("hide");
+};
 
 const generateBorderCountries = (border) => {
   borderCountries.insertAdjacentHTML(
     "beforeend",
     `
-    <div class="col-4 border-country">
+    <div class="col-4 border-country" hide>
         <div class="border-country-image">
             <img src="${border.flag}" alt="">
         </div>
         <div class="border-country-text">
-            <p>${border.name}</p>
+            <p class="text-center">${border.name}</p>
         </div>
     </div>
   `
@@ -28,12 +23,13 @@ const generateBorderCountries = (border) => {
 };
 
 const loadBorderCountries = (borderCountry) => {
-  borderCountry.borders.forEach(async function (country) {
+  borderCountry.borders.forEach(async function (country, i) {
     const response = await fetch(
       `https://restcountries.com/v2/alpha/${country}`
     );
     const json = await response.json();
     generateBorderCountries(json);
+    setFirstClue();
   });
 };
 
@@ -59,7 +55,6 @@ const startGame = async () => {
   const randomNumber = Math.floor(Math.random() * countries);
   let mainCountry = json[randomNumber];
   console.log(mainCountry.name);
-  console.log(mainCountry.borders);
   if (mainCountry.borders === undefined) {
     console.log("no borders, restarting...");
     startGame();

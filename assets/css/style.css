@@ -6,6 +6,7 @@
 .main-country-image {
   margin-bottom: 10px;
   border: 1px solid grey;
+  position: relative;
 }
 
 .main-country-image img {
@@ -25,6 +26,7 @@
 
 .border-country-image {
   margin-bottom: 10px;
+  position: relative;
 }
 
 .border-country-image img {
@@ -35,5 +37,16 @@
   -o-object-position: center;
      object-position: center;
   border: 1px solid grey;
+}
+
+[hide] .main-country-image::before,
+[hide] .border-country-image::before {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 /*# sourceMappingURL=style.css.map */
