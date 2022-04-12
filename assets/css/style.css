@@ -49,4 +49,15 @@
   right: 0;
   bottom: 0;
 }
+
+[hide] .main-country-text p,
+[hide] .border-country-text p {
+  font-size: 0;
+}
+
+[hide] .main-country-text p::after,
+[hide] .border-country-text p::after {
+  content: "?????";
+  font-size: 1rem;
+}
 /*# sourceMappingURL=style.css.map */
