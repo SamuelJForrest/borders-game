@@ -2,8 +2,18 @@ const mainCountryImage = document.querySelector(".main-country-image img");
 const mainCountryText = document.querySelector(".main-country-text p");
 const mainCountryForm = document.querySelector(".main-country-form");
 const borderCountries = document.querySelector(".border-countries");
+const countryNames = [];
 
-const revealBorderCountry = () => {
+const collectCountryNames = async () => {
+  const response = await fetch(`https://restcountries.com/v2/all`);
+  const json = await response.json();
+  json.forEach((name) => {
+    countryNames.push(name.name.toLowerCase());
+  });
+};
+collectCountryNames();
+
+const revealBorderCountry = async () => {
   const countries = document.querySelectorAll(".border-country");
   for (let i = 0; i < countries.length; i++) {
     if (countries[i].hasAttribute("hide")) {
@@ -13,11 +23,12 @@ const revealBorderCountry = () => {
   }
 };
 
-const generateBorderCountries = (border) => {
+const generateBorderCountries = (border, index) => {
+  const hidden = index === 0 ? "" : "hide";
   borderCountries.insertAdjacentHTML(
     "beforeend",
     `
-    <div class="col-3 border-country" hide>
+    <div class="col-3 border-country" ${hidden}>
         <div class="border-country-image">
             <img src="${border.flag}" alt="">
         </div>
@@ -30,12 +41,14 @@ const generateBorderCountries = (border) => {
 };
 
 const loadBorderCountries = (borderCountry) => {
+  let index = 0;
   borderCountry.borders.forEach(async function (country) {
     const response = await fetch(
       `https://restcountries.com/v2/alpha/${country}`
     );
     const json = await response.json();
-    generateBorderCountries(json);
+    generateBorderCountries(json, index);
+    index += 1;
   });
 };
 
@@ -70,9 +83,14 @@ const startGame = async () => {
   }
 };
 
-const checkCountry = (e) => {
-  e.preventDefault();
+const checkCountry = () => {
   const input = document.querySelector(".main-country-form input");
+
+  if (!countryNames.includes(input.value.toLowerCase())) {
+    console.log("name not in list");
+    return;
+  }
+
   if (input.value.toLowerCase() !== mainCountryText.innerText.toLowerCase()) {
     revealBorderCountry();
   } else {
@@ -85,5 +103,8 @@ const checkCountry = (e) => {
 };
 
 mainCountryForm.addEventListener("submit", checkCountry);
+mainCountryForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
 
 startGame();
