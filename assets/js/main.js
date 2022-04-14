@@ -1,14 +1,17 @@
+const mainCountry = document.querySelector(".main-country");
 const mainCountryImage = document.querySelector(".main-country-image img");
 const mainCountryText = document.querySelector(".main-country-text p");
 const mainCountryForm = document.querySelector(".main-country-form");
 const borderCountries = document.querySelector(".border-countries");
+const mainCountryWords = [];
 const countryNames = [];
 
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
-    countryNames.push(name.name.toLowerCase());
+    let nameWords = name.name.toLowerCase().split(" ");
+    countryNames.push(...nameWords);
   });
 };
 collectCountryNames();
@@ -18,8 +21,17 @@ const revealBorderCountry = async () => {
   for (let i = 0; i < countries.length; i++) {
     if (countries[i].hasAttribute("hide")) {
       countries[i].removeAttribute("hide");
-      break;
+      return;
     }
+  }
+
+  const hiddenCountries = document.querySelectorAll("[hide]");
+  if (hiddenCountries.length === 1) {
+    console.log(`game over, the answer was ${mainCountryText.textContent}`);
+    mainCountryForm.removeEventListener("submit", checkCountry);
+    setTimeout(() => {
+      mainCountry.removeAttribute("hide");
+    }, 1000);
   }
 };
 
@@ -62,6 +74,11 @@ const generateCountry = async (country) => {
     let mainCountry = json;
     mainCountryImage.src = mainCountry.flag;
     mainCountryText.innerText = mainCountry.name;
+    let name = mainCountry.name.toLowerCase().split(" ");
+    name.forEach((word) => {
+      mainCountryWords.push(word);
+    });
+    console.log(mainCountryWords);
     loadBorderCountries(mainCountry);
   } catch (error) {
     console.log(error);
@@ -83,18 +100,32 @@ const startGame = async () => {
   }
 };
 
+const checkWords = (words) => {
+  words.forEach((word) => {
+    if (mainCountryWords.includes(word)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};
+
 const checkCountry = () => {
   const input = document.querySelector(".main-country-form input");
+  let name = input.value.toLowerCase().split(" ");
 
-  if (!countryNames.includes(input.value.toLowerCase())) {
+  if (!countryNames.includes(...name)) {
     console.log("name not in list");
+    input.value = "";
     return;
   }
 
-  if (input.value.toLowerCase() !== mainCountryText.innerText.toLowerCase()) {
+  if (
+    input.value.toLowerCase() !== mainCountryText.innerText.toLowerCase() &&
+    !mainCountryWords.includes(input.value.toLowerCase())
+  ) {
     revealBorderCountry();
   } else {
-    const mainCountry = document.querySelector(".main-country");
     mainCountry.removeAttribute("hide");
     console.log("you got it!");
     mainCountryForm.removeEventListener("submit", checkCountry);
