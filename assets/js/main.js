@@ -10,7 +10,7 @@ const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
-    let nameWords = name.name.toLowerCase().split(" ");
+    let nameWords = name.name.toLowerCase().replace(",", "").split(" ");
     countryNames.push(...nameWords);
   });
 };
@@ -41,12 +41,20 @@ const generateBorderCountries = (border, index) => {
     "beforeend",
     `
     <div class="col-3 border-country" ${hidden}>
-        <div class="border-country-image">
-            <img src="${border.flag}" alt="">
+      <div class="border-country-card">
+        <div class="border-country-card-content">
+          <div class="border-country-front">
+            <div class="border-country-image">
+                <img src="${border.flag}" alt="">
+            </div>
+          </div>
+          <div class="border-country-back">
+          </div>
         </div>
-        <div class="border-country-text">
-            <p class="text-center">${border.name}</p>
-        </div>
+      </div>
+      <div class="border-country-text">
+          <p class="text-center">${border.name}</p>
+      </div>
     </div>
   `
   );

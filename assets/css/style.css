@@ -1,21 +1,77 @@
-/* Variables */
+body {
+  background: #dcdbd8;
+}
+
+.border-country-card,
+.main-country-card {
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.border-country-card-content,
+.main-country-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  -webkit-transition: -webkit-transform 1.3s;
+  transition: -webkit-transform 1.3s;
+  transition: transform 1.3s;
+  transition: transform 1.3s, -webkit-transform 1.3s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.border-country-front, .border-country-back,
+.main-country-front,
+.main-country-back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.border-country-back,
+.main-country-back {
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
+  background-color: #000;
+}
+
+.border-country-image,
+.main-country-image {
+  margin-bottom: 10px;
+  position: relative;
+  height: 100%;
+}
+
+.border-country-image img,
+.main-country-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+}
+
 .main-country {
   width: 100%;
 }
 
-.main-country-image {
-  margin-bottom: 10px;
-  border: 1px solid grey;
-  position: relative;
-}
-
-.main-country-image img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+.main-country-card {
+  height: 400px;
 }
 
 .main-country-text {
@@ -24,30 +80,10 @@
   font-size: 2rem;
 }
 
-.border-country-image {
-  margin-bottom: 10px;
-  position: relative;
-}
-
-.border-country-image img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-  border: 1px solid grey;
-}
-
-[hide] .main-country-image::before,
-[hide] .border-country-image::before {
-  content: "";
-  position: absolute;
-  background-color: #000;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+[hide] .main-country-card-content,
+[hide] .border-country-card-content {
+  -webkit-transform: rotateX(180deg);
+          transform: rotateX(180deg);
 }
 
 [hide] .main-country-text p,
@@ -59,5 +95,9 @@
 [hide] .border-country-text p::after {
   content: "?????";
   font-size: 1rem;
+}
+
+[hide] .main-country-text p::after {
+  font-size: 2rem;
 }
 /*# sourceMappingURL=style.css.map */
