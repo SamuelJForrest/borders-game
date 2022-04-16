@@ -3,6 +3,8 @@ const mainCountryImage = document.querySelector(".main-country-image img");
 const mainCountryText = document.querySelector(".main-country-text p");
 const mainCountryForm = document.querySelector(".main-country-form");
 const borderCountries = document.querySelector(".border-countries");
+const loadingModal = document.querySelector(".loading-modal");
+const invalidGuess = document.querySelector(".invalid-guess");
 const mainCountryWords = [];
 const countryNames = [];
 
@@ -10,7 +12,7 @@ const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
-    let nameWords = name.name.toLowerCase().replace(",", "").split(" ");
+    let nameWords = name.name.toLowerCase().replace(/[,()]/g, "").split(" ");
     countryNames.push(...nameWords);
   });
 };
@@ -70,6 +72,7 @@ const loadBorderCountries = (borderCountry) => {
     generateBorderCountries(json, index);
     index += 1;
   });
+  loadingModal.classList.add("__animateup");
 };
 
 const generateCountry = async (country) => {
@@ -118,12 +121,20 @@ const checkWords = (words) => {
   });
 };
 
+const notification = () => {
+  invalidGuess.classList.add("__notification");
+  invalidGuess.addEventListener("animationend", () => {
+    invalidGuess.classList.remove("__notification");
+  });
+};
+
 const checkCountry = () => {
   const input = document.querySelector(".main-country-form input");
   let name = input.value.toLowerCase().split(" ");
 
   if (!countryNames.includes(...name)) {
     console.log("name not in list");
+    notification();
     input.value = "";
     return;
   }

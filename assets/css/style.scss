@@ -1,5 +1,40 @@
+/* imports */
+@import "config";
+
+/* styling */
 body {
-  background: #dcdbd8;
+  background: $color-light;
+  font-family: "Rubik", sans-serif;
+}
+
+.highlight {
+  color: $color-brand;
+  display: inline-block;
+}
+
+header {
+  padding: 20px 0;
+
+  a {
+    color: $color-dark;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $color-dark;
+    }
+  }
+}
+
+.header {
+  &-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+
+  &-text {
+    font-weight: 600;
+  }
 }
 
 .border-country,
@@ -15,7 +50,7 @@ body {
       width: 100%;
       height: 100%;
       text-align: center;
-      transition: transform 1.3s;
+      transition: transform 1.2s;
       transform-style: preserve-3d;
     }
   }
@@ -95,5 +130,54 @@ body {
         }
       }
     }
+  }
+}
+
+.loading-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $color-light;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 1.2s;
+
+  &-title {
+    font-size: 6rem;
+    font-weight: 600;
+  }
+
+  &-subtitle {
+    font-weight: 600;
+  }
+}
+
+.invalid-guess {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: $color-brand;
+  color: $color-light;
+  padding: 15px 25px;
+  border-radius: 8px;
+  z-index: -1;
+  opacity: 0;
+  width: 75%;
+
+  @media screen and (min-width: $lg) {
+    width: auto;
+  }
+
+  &-text {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
   }
 }
