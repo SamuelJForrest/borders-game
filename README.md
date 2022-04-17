@@ -3,7 +3,8 @@
 (Add introduction here)
 
 - Give Rest Countries a shouout
-- Change the rules of the game: it should be a game in which you are given the country, but have to guess the borders.
+- Explain the rules of the game
+-
 
 ## Releases
 
@@ -11,11 +12,20 @@
 
 #### Features
 
+_Current Features_
+
 - Example feature
+
+_Future Features_
+
+- Hint: add in a button that gives the player a hint about the mystery country.
 
 #### Bugs/Fixes
 
-- Example bug (and fix if applicable)
+_Country Names Error Handling_
+
+- Bug:
+- Fix:
 
 ## Contact
 

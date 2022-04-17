@@ -183,4 +183,10 @@ startGame();
  * There are also some countries with incorrect borders:
  * - Cyrpus (says it borders with the UK)
  * - Brazil (says it borders France)
+ *
+ * Make a list of words needed to remove from the countries list:
+ * Federation
+ * Islamic
+ * Republic
+ *
  */
