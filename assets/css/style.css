@@ -37,8 +37,8 @@
 }
 
 .__notification {
-  -webkit-animation: notification 2.5s;
-          animation: notification 2.5s;
+  -webkit-animation: notification 3s;
+          animation: notification 3s;
 }
 
 @-webkit-keyframes notification {
@@ -248,7 +248,7 @@ header a:hover, header a:focus {
   font-weight: 600;
 }
 
-.invalid-guess {
+.notification-modal {
   position: absolute;
   top: 100px;
   left: 50%;
@@ -264,14 +264,60 @@ header a:hover, header a:focus {
 }
 
 @media screen and (min-width: 992px) {
-  .invalid-guess {
+  .notification-modal {
     width: auto;
   }
 }
 
-.invalid-guess-text {
+.notification-modal-text {
   margin: 0;
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+.end-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 5;
+  text-align: center;
+}
+
+.end-screen-modal {
+  background: #f9f6ee;
+  z-index: 10;
+  border-radius: 8px;
+  padding: 30px 60px;
+  width: 85%;
+  max-width: 720px;
+}
+
+.end-screen .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #03012c;
+  opacity: 0.8;
 }
 /*# sourceMappingURL=style.css.map */

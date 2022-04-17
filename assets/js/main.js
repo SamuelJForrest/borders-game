@@ -4,7 +4,8 @@ const mainCountryText = document.querySelector(".main-country-text p");
 const mainCountryForm = document.querySelector(".main-country-form");
 const borderCountries = document.querySelector(".border-countries");
 const loadingModal = document.querySelector(".loading-modal");
-const invalidGuess = document.querySelector(".invalid-guess");
+const notificationModal = document.querySelector(".notification-modal");
+const notificationText = document.querySelector(".notification-modal-text");
 const mainCountryWords = [];
 const countryNames = [];
 
@@ -29,8 +30,8 @@ const revealBorderCountry = async () => {
 
   const hiddenCountries = document.querySelectorAll("[hide]");
   if (hiddenCountries.length === 1) {
-    console.log(`game over, the answer was ${mainCountryText.textContent}`);
     mainCountryForm.removeEventListener("submit", checkCountry);
+    notification("game over");
     setTimeout(() => {
       mainCountry.removeAttribute("hide");
     }, 1000);
@@ -104,7 +105,6 @@ const startGame = async () => {
   let mainCountry = json[randomNumber];
   console.log(mainCountry.name);
   if (mainCountry.borders === undefined) {
-    console.log("no borders, restarting...");
     startGame();
   } else {
     generateCountry(mainCountry.alpha3Code);
@@ -121,11 +121,22 @@ const checkWords = (words) => {
   });
 };
 
-const notification = () => {
-  invalidGuess.classList.add("__notification");
-  invalidGuess.addEventListener("animationend", () => {
-    invalidGuess.classList.remove("__notification");
+const notification = (status) => {
+  notificationModal.classList.add("__notification");
+  notificationModal.addEventListener("animationend", () => {
+    notificationModal.classList.remove("__notification");
   });
+
+  switch (status) {
+    case "invalid country":
+      notificationText.textContent = "Invalid country - please try again";
+      break;
+    case "game over":
+      notificationText.textContent = "Better luck next time!";
+      break;
+    case "success":
+      notificationText.textContent = "You got it! Congratulations!";
+  }
 };
 
 const checkCountry = () => {
@@ -134,7 +145,7 @@ const checkCountry = () => {
 
   if (!countryNames.includes(...name)) {
     console.log("name not in list");
-    notification();
+    notification("invalid country");
     input.value = "";
     return;
   }
@@ -146,7 +157,7 @@ const checkCountry = () => {
     revealBorderCountry();
   } else {
     mainCountry.removeAttribute("hide");
-    console.log("you got it!");
+    notification("success");
     mainCountryForm.removeEventListener("submit", checkCountry);
   }
   input.value = "";
@@ -158,3 +169,18 @@ mainCountryForm.addEventListener("submit", (e) => {
 });
 
 startGame();
+
+/**
+ * @TODO:
+ * There are some countries that are proving difficult due to their names being innaccurate: keep a list of them hear (plus the reason for the difficulty):
+ * - North and South Korea (Both called Korea)
+ * - Russian Federation (should just be called Russia)
+ * - Palestine, (remove the comma from the name)
+ * - Syrian republic (should just be called Syria)
+ * - United Kingdom of Great Britain and Northern Ireland (change name to United Kingdom, UK and Britain)
+ * - Lao People's Democratic Republic (add the people's democractic republic in brackets)
+ *
+ * There are also some countries with incorrect borders:
+ * - Cyrpus (says it borders with the UK)
+ * - Brazil (says it borders France)
+ */
