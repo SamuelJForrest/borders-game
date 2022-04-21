@@ -14,11 +14,45 @@ const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
-    let nameWords = name.name.toLowerCase().replace(/[,()]/g, "").split(" ");
+    // let nameWords = name.name.toLowerCase().replace(/[,()]/g, "").split(" ");
+    let nameWords = catchNames(name.name).toLowerCase().split(" ");
     countryNames.push(...nameWords);
   });
 };
 collectCountryNames();
+
+const catchNames = (name) => {
+  const splitName = name
+    .toLowerCase()
+    .replace("(islamic republic of)", "")
+    .replace("russian federation", "Russia")
+    .replace("korea (democratic people's republic of)", "North Korea")
+    .replace("bolivia (plurinational state of)", "Bolivia")
+    .replace("palestine, state of", "palestine")
+    .replace("tanzania, united republic of", "tanzania")
+    .replace(
+      "congo (democratic republic of the)",
+      "democratic republic of the congo"
+    )
+    .replace("syrian arab republic", "syria")
+    .replace("lao people's democratic republic", "laos")
+    .replace("moldova (republic of)", "moldova")
+    .replace("korea (republic of)", "south korea")
+    .replace("venezuela (bolivarian republic of", "venezuela")
+    .replace(
+      "united kingdom of great britain and northern island",
+      "united kingdom"
+    )
+    .split(" ");
+
+  const capitalizedName = [];
+  splitName.forEach((word) => {
+    capitalizedName.push(word.charAt(0).toUpperCase() + word.slice(1));
+  });
+  const finalName = capitalizedName.join(" ");
+
+  return finalName;
+};
 
 const revealEndScreen = () => {
   endScreen.classList.remove("d-none");
@@ -46,6 +80,8 @@ const revealBorderCountry = async () => {
 
 const generateBorderCountries = (border, index) => {
   const hidden = index === 0 ? "" : "hide";
+  const catchName = catchNames(border.name);
+
   borderCountries.insertAdjacentHTML(
     "beforeend",
     `
@@ -62,7 +98,7 @@ const generateBorderCountries = (border, index) => {
         </div>
       </div>
       <div class="border-country-text">
-          <p class="text-center">${border.name}</p>
+          <p class="text-center">${catchName}</p>
       </div>
     </div>
   `
@@ -82,6 +118,12 @@ const loadBorderCountries = (borderCountry) => {
   loadingModal.classList.add("__animateup");
 };
 
+const generateName = (name) => {
+  name.forEach((word) => {
+    mainCountryWords.push(catchNames(word).toLowerCase());
+  });
+};
+
 const generateCountry = async (country) => {
   try {
     const response = await fetch(
@@ -91,11 +133,9 @@ const generateCountry = async (country) => {
 
     let mainCountry = json;
     mainCountryImage.src = mainCountry.flag;
-    mainCountryText.innerText = mainCountry.name;
+    mainCountryText.innerText = catchNames(mainCountry.name);
     let name = mainCountry.name.toLowerCase().split(" ");
-    name.forEach((word) => {
-      mainCountryWords.push(word);
-    });
+    generateName(name);
     loadBorderCountries(mainCountry);
   } catch (error) {
     console.log(error);
@@ -168,10 +208,13 @@ const checkCountry = () => {
   input.value = "";
 };
 
+// prevent form/input default
 mainCountryForm.addEventListener("submit", checkCountry);
 mainCountryForm.addEventListener("submit", (e) => {
   e.preventDefault();
 });
+
+// stop mobile devices effecting viewport height
 window.addEventListener("load", () => {
   var viewport = document.querySelector("meta[name=viewport]");
   viewport.setAttribute(
