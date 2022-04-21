@@ -5,6 +5,10 @@
 body {
   background: $color-light;
   font-family: "Rubik", sans-serif;
+
+  &.__gameover {
+    overflow: hidden;
+  }
 }
 
 .highlight {
@@ -34,6 +38,7 @@ header {
 
   &-text {
     font-weight: 600;
+    margin-bottom: 10px;
   }
 }
 
@@ -42,8 +47,12 @@ header {
   &-card {
     perspective: 1000px;
     width: 100%;
-    height: 100px;
+    height: 50px;
     margin-bottom: 15px;
+
+    @media screen and (min-width: $lg) {
+      height: 100px;
+    }
 
     &-content {
       position: relative;
@@ -93,14 +102,35 @@ header {
   width: 100%;
 
   &-card {
-    height: 400px;
+    height: 150px;
+
+    @media screen and (min-width: $lg) {
+      height: 250px;
+    }
+
+    @media screen and (min-width: $xl) {
+      height: 300px;
+    }
   }
 
   &-text {
     text-align: center;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1rem;
+
+    @media screen and (min-width: $md) {
+      font-size: 2rem;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
   }
+}
+
+input {
+  width: 100%;
+  padding: 0;
 }
 
 [hide] {
@@ -149,8 +179,12 @@ header {
   transition: 1.2s;
 
   &-title {
-    font-size: 6rem;
+    font-size: 5rem;
     font-weight: 600;
+
+    @media screen and (min-width: $md) {
+      font-size: 6rem;
+    }
   }
 
   &-subtitle {
@@ -204,6 +238,46 @@ header {
     padding: 30px 60px;
     width: 85%;
     max-width: 720px;
+  }
+
+  &-title {
+    font-weight: 600;
+  }
+
+  &-text {
+    margin-bottom: 5px;
+  }
+
+  .social-icons {
+    margin-bottom: 30px;
+    a {
+      color: $color-dark;
+      opacity: 0.7;
+      transition: 0.3s;
+      font-size: 1.5rem;
+      margin: 0 5px;
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+      }
+    }
+  }
+
+  .play-again-btn {
+    background: $color-brand;
+    color: $color-light;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: 0.3s;
+
+    &:hover,
+    &:focus {
+      background-color: darken($color-brand, 10%);
+    }
   }
 
   .overlay {

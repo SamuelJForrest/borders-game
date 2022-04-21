@@ -12,6 +12,17 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://kit.fontawesome.com/42dcb796dc.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Bordle</title>
   </head>
   <body>
@@ -31,7 +42,7 @@
     </header>
     <section class="game-section container">
       <div class="row">
-        <div class="col-md-5 mb-4 mb-md-0">
+        <div class="col-8 col-md-5 mx-auto mx-md-0 mb-4 mb-md-0">
           <div class="main-country" hide>
             <div class="main-country-card">
               <div class="main-country-card-content">
@@ -67,15 +78,35 @@
     <div class="notification-modal">
       <p class="notification-modal-text">Invalid country - please try again</p>
     </div>
-    <!-- @TODO: when this end screen shows, add a class to the body to stop use scrolling -->
     <div class="end-screen d-none">
       <div class="overlay"></div>
       <div class="end-screen-modal">
-        <h2>Thanks for playing!</h2>
-        <p>
-          If you enjoyed the game, wanted to support me, or suggest additions
-          for the game - please consider following me on socials!
+        <h2 class="end-screen-title">Thanks for playing!</h2>
+        <p class="end-screen-text">
+          If you enjoyed the game, and want to keep up to date with future games
+          and projects, you can follow/contact me here:
         </p>
+        <div class="social-icons">
+          <a
+            href="https://www.twitter.com/samueljforrest"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-twitter"></i
+          ></a>
+          <a
+            href="mailto:samueljamesforrestweb@gmail.com"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-solid fa-envelope"></i
+          ></a>
+          <a
+            href="https://www.github.com/samueljforrest"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-github"></i
+          ></a>
+        </div>
+        <a href="/" class="play-again-btn">Play again</a>
       </div>
     </div>
     <script src="assets/js/main.js"></script>

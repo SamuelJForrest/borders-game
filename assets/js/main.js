@@ -6,6 +6,7 @@ const borderCountries = document.querySelector(".border-countries");
 const loadingModal = document.querySelector(".loading-modal");
 const notificationModal = document.querySelector(".notification-modal");
 const notificationText = document.querySelector(".notification-modal-text");
+const endScreen = document.querySelector(".end-screen");
 const mainCountryWords = [];
 const countryNames = [];
 
@@ -18,6 +19,11 @@ const collectCountryNames = async () => {
   });
 };
 collectCountryNames();
+
+const revealEndScreen = () => {
+  endScreen.classList.remove("d-none");
+  document.body.classList.add("__gameover");
+};
 
 const revealBorderCountry = async () => {
   const countries = document.querySelectorAll(".border-country");
@@ -43,7 +49,7 @@ const generateBorderCountries = (border, index) => {
   borderCountries.insertAdjacentHTML(
     "beforeend",
     `
-    <div class="col-3 border-country" ${hidden}>
+    <div class="col-4 col-sm-3 border-country" ${hidden}>
       <div class="border-country-card">
         <div class="border-country-card-content">
           <div class="border-country-front">
@@ -133,9 +139,11 @@ const notification = (status) => {
       break;
     case "game over":
       notificationText.textContent = "Better luck next time!";
+      setTimeout(revealEndScreen, 2000);
       break;
     case "success":
       notificationText.textContent = "You got it! Congratulations!";
+      setTimeout(revealEndScreen, 2000);
   }
 };
 
