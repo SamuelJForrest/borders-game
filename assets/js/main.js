@@ -96,7 +96,6 @@ const generateCountry = async (country) => {
     name.forEach((word) => {
       mainCountryWords.push(word);
     });
-    console.log(mainCountryWords);
     loadBorderCountries(mainCountry);
   } catch (error) {
     console.log(error);
@@ -109,7 +108,6 @@ const startGame = async () => {
   const countries = json.length;
   const randomNumber = Math.floor(Math.random() * countries);
   let mainCountry = json[randomNumber];
-  console.log(mainCountry.name);
   if (mainCountry.borders === undefined) {
     startGame();
   } else {
@@ -152,7 +150,6 @@ const checkCountry = () => {
   let name = input.value.toLowerCase().split(" ");
 
   if (!countryNames.includes(...name)) {
-    console.log("name not in list");
     notification("invalid country");
     input.value = "";
     return;
@@ -174,6 +171,13 @@ const checkCountry = () => {
 mainCountryForm.addEventListener("submit", checkCountry);
 mainCountryForm.addEventListener("submit", (e) => {
   e.preventDefault();
+});
+window.addEventListener("load", () => {
+  var viewport = document.querySelector("meta[name=viewport]");
+  viewport.setAttribute(
+    "content",
+    viewport.content + ", height=" + window.innerHeight
+  );
 });
 
 startGame();
