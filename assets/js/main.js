@@ -38,7 +38,7 @@ const catchNames = (name) => {
     .replace("lao people's democratic republic", "laos")
     .replace("moldova (republic of)", "moldova")
     .replace("korea (republic of)", "south korea")
-    .replace("venezuela (bolivarian republic of", "venezuela")
+    .replace("venezuela (bolivarian republic of)", "venezuela")
     .replace(
       "united kingdom of great britain and northern island",
       "united kingdom"
