@@ -204,9 +204,11 @@ input {
   z-index: -1;
   opacity: 0;
   width: 75%;
+  text-align: center;
 
   @media screen and (min-width: $lg) {
     width: auto;
+    text-align: left;
   }
 
   &-text {
@@ -264,7 +266,7 @@ input {
     }
   }
 
-  .play-again-btn {
+  &-btn {
     background: $color-brand;
     color: $color-light;
     text-decoration: none;
@@ -273,6 +275,8 @@ input {
     text-transform: uppercase;
     font-weight: 600;
     transition: 0.3s;
+    display: inline-block;
+    margin-bottom: 10px;
 
     &:hover,
     &:focus {

@@ -306,11 +306,13 @@ input {
   z-index: -1;
   opacity: 0;
   width: 75%;
+  text-align: center;
 }
 
 @media screen and (min-width: 992px) {
   .notification-modal {
     width: auto;
+    text-align: left;
   }
 }
 
@@ -379,7 +381,7 @@ input {
   opacity: 1;
 }
 
-.end-screen .play-again-btn {
+.end-screen-btn {
   background: #3cb35a;
   color: #f9f6ee;
   text-decoration: none;
@@ -389,9 +391,11 @@ input {
   font-weight: 600;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.end-screen .play-again-btn:hover, .end-screen .play-again-btn:focus {
+.end-screen-btn:hover, .end-screen-btn:focus {
   background-color: #2f8d47;
 }
 
