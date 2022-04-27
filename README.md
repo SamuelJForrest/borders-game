@@ -6,6 +6,8 @@ Calling all geography lovers 🌍 Challenge yourself by finding the mystery coun
 
 This game was created using the [Rest Country API](https://restcountries.com/) to output information about each countries and its borders.
 
+The colours for this project were taken from [ColorHub](https://colorhub.vercel.app/) - created by the fantastic [Daniel Cranney](https://twitter.com/danielcranney).
+
 If you would like suggest features for future iterations of the game - feel free to contact me via [Twitter](https://twitter.com/samueljforrest)
 
 ## Releases
