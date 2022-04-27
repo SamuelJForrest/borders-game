@@ -1,10 +1,12 @@
-# Guess The Borders
+# Bordle
 
-(Add introduction here)
+![Bordle logo](assets/imgs/loading-screen.png)
 
-- Give Rest Countries a shouout
-- Explain the rules of the game
-- How to contact me
+Calling all geography lovers 🌍 Challenge yourself by finding the mystery country based on its neighbours. For each incorrect guess, a new bordering country will reveal itself.
+
+This game was created using the [Rest Country API](https://restcountries.com/) to output information about each countries and its borders.
+
+If you would like suggest features for future iterations of the game - feel free to contact me via [Twitter](https://twitter.com/samueljforrest)
 
 ## Releases
 
@@ -14,7 +16,8 @@
 
 **Current Features**
 
-- Example feature
+- Game randomly generates mystery countries, meaning that no two games are the same.
+- Game is available on all devices (mobile, tablet, desktop)
 
 **Future Features**
 
