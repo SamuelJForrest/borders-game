@@ -123,14 +123,14 @@ header {
     }
 
     p {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
   }
 }
 
 input {
   width: 100%;
-  padding: 0;
+  padding: 0 5px;
 }
 
 [hide] {
@@ -281,6 +281,7 @@ input {
     &:hover,
     &:focus {
       background-color: darken($color-brand, 10%);
+      color: $color-light;
     }
   }
 

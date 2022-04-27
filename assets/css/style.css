@@ -223,12 +223,12 @@ header a:hover, header a:focus {
 }
 
 .main-country-text p {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 input {
   width: 100%;
-  padding: 0;
+  padding: 0 5px;
 }
 
 [hide] .main-country-card-content,
@@ -397,6 +397,7 @@ input {
 
 .end-screen-btn:hover, .end-screen-btn:focus {
   background-color: #2f8d47;
+  color: #f9f6ee;
 }
 
 .end-screen .overlay {
