@@ -14,7 +14,6 @@ const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
-    // let nameWords = name.name.toLowerCase().replace(/[,()]/g, "").split(" ");
     let nameWords = catchNames(name.name).toLowerCase().split(" ");
     countryNames.push(...nameWords);
   });
@@ -187,7 +186,7 @@ const notification = (status) => {
 
 const checkCountry = () => {
   const input = document.querySelector(".main-country-form input");
-  let name = input.value.toLowerCase().split(" ");
+  let name = input.value.trim().toLowerCase().split(" ");
 
   if (!countryNames.includes(...name)) {
     notification("invalid country");
@@ -196,7 +195,8 @@ const checkCountry = () => {
   }
 
   if (
-    input.value.toLowerCase() !== mainCountryText.innerText.toLowerCase() &&
+    input.value.trim().toLowerCase() !==
+      mainCountryText.innerText.toLowerCase() &&
     !mainCountryWords.includes(input.value.toLowerCase())
   ) {
     revealBorderCountry();
