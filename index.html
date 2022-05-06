@@ -68,7 +68,15 @@
             <div class="main-country-text">
               <p></p>
               <form action="/" class="main-country-form">
-                <input type="text" />
+                <label for="input"></label>
+                <input
+                  type="text"
+                  list=""
+                  id="input"
+                  autocomplete="off"
+                  placeholder="Guess a country"
+                />
+                <datalist id="countries"> </datalist>
               </form>
             </div>
           </div>

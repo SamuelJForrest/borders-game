@@ -12,6 +12,14 @@ If you would like suggest features for future iterations of the game - feel free
 
 ## Releases
 
+### V.1.0.1
+
+**Added Features**
+
+- Sanitised user input by trimming any whitespace from the input's value. This was particularly problematic as mobile autocorrect often leaves a space after a word has been selected.
+- Added LinkedIn link to game over screen
+- Removed pointer events from all images to stop user being able to see the flag by dragging the image.
+
 ### V.1.0.0 (27.04.2022)
 
 #### Features

@@ -9,6 +9,8 @@ const notificationText = document.querySelector(".notification-modal-text");
 const endScreen = document.querySelector(".end-screen");
 const mainCountryWords = [];
 const countryNames = [];
+const datalist = document.querySelector("#countries");
+const input = document.querySelector(".main-country-form input");
 
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
@@ -16,7 +18,18 @@ const collectCountryNames = async () => {
   json.forEach((name) => {
     let nameWords = catchNames(name.name).toLowerCase().split(" ");
     countryNames.push(...nameWords);
+    datalist.insertAdjacentHTML(
+      "beforeend",
+      `<option value="${name.name}">${name.name}</option>`
+    );
   });
+  for (let option of datalist.options) {
+    option.addEventListener("click", function () {
+      input.value = option.value;
+      datalist.style.display = "none";
+      input.style.borderRadius = "5px";
+    });
+  }
 };
 collectCountryNames();
 
@@ -185,7 +198,6 @@ const notification = (status) => {
 };
 
 const checkCountry = () => {
-  const input = document.querySelector(".main-country-form input");
   let name = input.value.trim().toLowerCase().split(" ");
 
   if (!countryNames.includes(...name)) {
@@ -222,6 +234,52 @@ window.addEventListener("load", () => {
     viewport.content + ", height=" + window.innerHeight
   );
 });
+
+input.onfocus = function () {
+  datalist.style.display = "block";
+  input.style.borderRadius = "5px 5px 0 0";
+};
+
+input.oninput = function () {
+  let text = input.value.toLowerCase();
+  for (let option of datalist.options) {
+    if (option.value.toLowerCase().indexOf(text) > -1) {
+      option.style.display = "block";
+    } else {
+      option.style.display = "none";
+    }
+  }
+};
+
+let currentFocus = -1;
+input.onkeydown = function (e) {
+  if (e.keyCode == 40) {
+    currentFocus++;
+    addActive(datalist.options);
+  } else if (e.keyCode == 38) {
+    currentFocus--;
+    addActive(datalist.options);
+  } else if (e.keyCode == 13) {
+    e.preventDefault();
+    checkCountry();
+    if (currentFocus > -1) {
+      if (datalist.options) datalist.options[currentFocus].click();
+    }
+  }
+};
+
+function addActive(x) {
+  if (!x) return false;
+  removeActive(x);
+  if (currentFocus >= x.length) currentFocus = 0;
+  if (currentFocus < 0) currentFocus = x.length - 1;
+  x[currentFocus].classList.add("active");
+}
+function removeActive(x) {
+  for (var i = 0; i < x.length; i++) {
+    x[i].classList.remove("active");
+  }
+}
 
 startGame();
 

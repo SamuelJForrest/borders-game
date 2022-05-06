@@ -227,9 +227,54 @@ header a:hover, header a:focus {
   margin-bottom: 10px;
 }
 
+form {
+  position: relative;
+}
+
 input {
   width: 100%;
   padding: 0 5px;
+}
+
+#countries {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  background: white;
+  border: 1px solid #03012c;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+#countries::-webkit-scrollbar {
+  width: 10px;
+}
+
+#countries::-webkit-scrollbar-track {
+  background: #03012c;
+  opacity: 0.1;
+}
+
+#countries::-webkit-scrollbar-thumb {
+  background: #3cb35a;
+  border-radius: 4px;
+}
+
+#countries::-webkit-scrollbar-thumb:hover {
+  background: #36a050;
+}
+
+#countries option {
+  width: 100%;
+  font-size: 1rem;
+}
+
+#countries option:hover, #countries option:focus, #countries option:active, #countries option.active {
+  background: #3cb35a;
+  color: #f9f6ee;
 }
 
 [hide] .main-country-card-content,
