@@ -97,7 +97,7 @@ const generateBorderCountries = (border, index) => {
   borderCountries.insertAdjacentHTML(
     "beforeend",
     `
-    <div class="col-4 col-sm-3 border-country" ${hidden}>
+    <div class="col-4 col-sm-3 border-country" ${hidden} nodrag>
       <div class="border-country-card">
         <div class="border-country-card-content">
           <div class="border-country-front">

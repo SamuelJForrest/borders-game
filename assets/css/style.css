@@ -91,6 +91,14 @@ body.__gameover {
   overflow: hidden;
 }
 
+*[nodrag] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .highlight {
   color: #3cb35a;
   display: inline-block;
@@ -229,6 +237,11 @@ header a:hover, header a:focus {
 
 form {
   position: relative;
+}
+
+label {
+  position: absolute;
+  left: 99999px;
 }
 
 input {

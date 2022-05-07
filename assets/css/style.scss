@@ -11,6 +11,15 @@ body {
   }
 }
 
+*[nodrag] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .highlight {
   color: $color-brand;
   display: inline-block;
@@ -131,6 +140,11 @@ header {
 
 form {
   position: relative;
+}
+
+label {
+  position: absolute;
+  left: 99999px;
 }
 
 input {
