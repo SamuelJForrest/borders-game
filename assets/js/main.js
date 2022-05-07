@@ -283,6 +283,14 @@ function removeActive(x) {
 
 startGame();
 
+// Event listeners
+
+// closes datalist when block is clicked on
+document.addEventListener("click", (e) => {
+  if (e.target == datalist || e.target == input) return;
+  datalist.style.display = "none";
+});
+
 /**
  * @TODO:
  * There are some countries that are proving difficult due to their names being innaccurate: keep a list of them hear (plus the reason for the difficulty):
