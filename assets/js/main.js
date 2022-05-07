@@ -289,6 +289,7 @@ startGame();
 document.addEventListener("click", (e) => {
   if (e.target == datalist || e.target == input) return;
   datalist.style.display = "none";
+  input.style.borderRadius = "0";
 });
 
 /**
