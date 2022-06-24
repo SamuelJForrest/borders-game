@@ -7,10 +7,12 @@ const loadingModal = document.querySelector(".loading-modal");
 const notificationModal = document.querySelector(".notification-modal");
 const notificationText = document.querySelector(".notification-modal-text");
 const endScreen = document.querySelector(".end-screen");
+const endScreenModal = document.querySelector(".end-screen-modal");
 const mainCountryWords = [];
 const countryNames = [];
 const datalist = document.querySelector("#countries");
 const input = document.querySelector(".main-country-form input");
+let amountOfGuesses = 0;
 
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
@@ -177,6 +179,34 @@ const checkWords = (words) => {
   });
 };
 
+const setTwitterMessage = (status) => {
+  if (status == "win") {
+    endScreenModal.insertAdjacentHTML(
+      "beforeend",
+      `
+      <a href="https://www.twitter.com/share?text=I guessed the country in ${amountOfGuesses} ${
+        amountOfGuesses == 1 ? "guess" : "guesses"
+      }! 🌎%0a%0aChallenge yourself by finding the mystery country based on its neighbours!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle" class="end-screen-btn"
+      target="_blank"
+      rel="noopener">Tweet</a>
+    `
+    );
+  } else {
+    endScreenModal.insertAdjacentHTML(
+      "beforeend",
+      `
+      <a
+      href="https://www.twitter.com/share?text=I'm playing Bordle! 🌍 Challenge yourself by finding the mystery country based on its neighbours!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle"
+      class="end-screen-btn"
+      target="_blank"
+      rel="noopener"
+      >Tweet</a
+    >
+    `
+    );
+  }
+};
+
 const notification = (status) => {
   notificationModal.classList.add("__notification");
   notificationModal.addEventListener("animationend", () => {
@@ -189,9 +219,11 @@ const notification = (status) => {
       break;
     case "game over":
       notificationText.textContent = "Better luck next time!";
+      setTwitterMessage();
       setTimeout(revealEndScreen, 2000);
       break;
     case "success":
+      setTwitterMessage("win");
       notificationText.textContent = "You got it! Congratulations!";
       setTimeout(revealEndScreen, 2000);
   }
@@ -211,8 +243,12 @@ const checkCountry = () => {
       mainCountryText.innerText.toLowerCase() &&
     !mainCountryWords.includes(input.value.toLowerCase())
   ) {
+    amountOfGuesses++;
+    console.log(amountOfGuesses);
     revealBorderCountry();
   } else {
+    amountOfGuesses++;
+    console.log(amountOfGuesses);
     mainCountry.removeAttribute("hide");
     notification("success");
     mainCountryForm.removeEventListener("submit", checkCountry);
@@ -240,6 +276,7 @@ input.onfocus = function () {
   input.style.borderRadius = "5px 5px 0 0";
 };
 
+// @TODO: change this function to make it filter the list of options, rather than hide them by showing display none
 input.oninput = function () {
   let text = input.value.toLowerCase();
   for (let option of datalist.options) {
@@ -294,21 +331,10 @@ document.addEventListener("click", (e) => {
 
 /**
  * @TODO:
- * There are some countries that are proving difficult due to their names being innaccurate: keep a list of them hear (plus the reason for the difficulty):
- * - North and South Korea (Both called Korea)
- * - Russian Federation (should just be called Russia)
- * - Palestine, (remove the comma from the name)
- * - Syrian republic (should just be called Syria)
- * - United Kingdom of Great Britain and Northern Ireland (change name to United Kingdom, UK and Britain)
- * - Lao People's Democratic Republic (add the people's democractic republic in brackets)
  *
  * There are also some countries with incorrect borders:
  * - Cyrpus (says it borders with the UK)
  * - Brazil (says it borders France)
  *
- * Make a list of words needed to remove from the countries list:
- * Federation
- * Islamic
- * Republic
  *
  */

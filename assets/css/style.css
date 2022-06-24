@@ -5,8 +5,7 @@
 /* screen sizes */
 /* animations */
 .__animateup {
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 
 .__bounce {
@@ -16,26 +15,21 @@
 
 @-webkit-keyframes bounce {
   from {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
+    transform: translateY(0px);
   }
   to {
-    -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
 }
 
 @keyframes bounce {
   from {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
+    transform: translateY(0px);
   }
   to {
-    -webkit-transform: translateY(-15px);
-            transform: translateY(-15px);
+    transform: translateY(-15px);
   }
 }
-
 .__notification {
   -webkit-animation: notification 3s;
           animation: notification 3s;
@@ -50,14 +44,12 @@
   }
   50% {
     opacity: 1;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
   100% {
     z-index: 1;
     opacity: 0;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -70,23 +62,19 @@
   }
   50% {
     opacity: 1;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
   100% {
     z-index: 1;
     opacity: 0;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
   }
 }
-
 /* styling */
 body {
   background: #f9f6ee;
   font-family: "Rubik", sans-serif;
 }
-
 body.__gameover {
   overflow: hidden;
 }
@@ -107,12 +95,10 @@ body.__gameover {
 header {
   padding: 20px 0;
 }
-
 header a {
   color: #03012c;
   text-decoration: none;
 }
-
 header a:hover, header a:focus {
   color: #03012c;
 }
@@ -121,7 +107,6 @@ header a:hover, header a:focus {
   font-size: 2.5rem;
   font-weight: 600;
 }
-
 .header-text {
   font-weight: 600;
   margin-bottom: 10px;
@@ -129,35 +114,27 @@ header a:hover, header a:focus {
 
 .border-country-card,
 .main-country-card {
-  -webkit-perspective: 1000px;
-          perspective: 1000px;
+  perspective: 1000px;
   width: 100%;
   height: 50px;
   margin-bottom: 15px;
   pointer-events: none;
 }
-
 @media screen and (min-width: 992px) {
   .border-country-card,
-  .main-country-card {
+.main-country-card {
     height: 100px;
   }
 }
-
 .border-country-card-content,
 .main-country-card-content {
   position: relative;
   width: 100%;
   height: 100%;
   text-align: center;
-  -webkit-transition: -webkit-transform 1.2s;
-  transition: -webkit-transform 1.2s;
   transition: transform 1.2s;
-  transition: transform 1.2s, -webkit-transform 1.2s;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
-
 .border-country-front, .border-country-back,
 .main-country-front,
 .main-country-back {
@@ -169,21 +146,17 @@ header a:hover, header a:focus {
   width: 100%;
   height: 100%;
 }
-
 .border-country-back,
 .main-country-back {
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
   background-color: #000;
 }
-
 .border-country-image,
 .main-country-image {
   margin-bottom: 10px;
   position: relative;
   height: 100%;
 }
-
 .border-country-image img,
 .main-country-image img {
   position: absolute;
@@ -202,35 +175,29 @@ header a:hover, header a:focus {
 .main-country {
   width: 100%;
 }
-
 .main-country-card {
   height: 150px;
 }
-
 @media screen and (min-width: 992px) {
   .main-country-card {
     height: 250px;
   }
 }
-
 @media screen and (min-width: 1200px) {
   .main-country-card {
     height: 300px;
   }
 }
-
 .main-country-text {
   text-align: center;
   font-weight: 700;
   font-size: 1rem;
 }
-
 @media screen and (min-width: 768px) {
   .main-country-text {
     font-size: 2rem;
   }
 }
-
 .main-country-text p {
   margin-bottom: 10px;
 }
@@ -253,38 +220,31 @@ input {
   position: absolute;
   bottom: 0;
   left: 0;
-  -webkit-transform: translateY(100%);
-          transform: translateY(100%);
+  transform: translateY(100%);
   background: #ffffff;
   border: 1px solid #03012c;
   width: 100%;
   max-height: 200px;
   overflow-y: scroll;
 }
-
 #countries::-webkit-scrollbar {
   width: 10px;
 }
-
 #countries::-webkit-scrollbar-track {
   background: #03012c;
   opacity: 0.1;
 }
-
 #countries::-webkit-scrollbar-thumb {
   background: #3cb35a;
   border-radius: 4px;
 }
-
 #countries::-webkit-scrollbar-thumb:hover {
   background: #36a050;
 }
-
 #countries option {
   width: 100%;
   font-size: 1rem;
 }
-
 #countries option:hover, #countries option:focus, #countries option:active, #countries option.active {
   background: #3cb35a;
   color: #f9f6ee;
@@ -292,21 +252,17 @@ input {
 
 [hide] .main-country-card-content,
 [hide] .border-country-card-content {
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
 }
-
 [hide] .main-country-text p,
 [hide] .border-country-text p {
   font-size: 0;
 }
-
 [hide] .main-country-text p::after,
 [hide] .border-country-text p::after {
   content: "?????";
   font-size: 1rem;
 }
-
 [hide] .main-country-text p::after {
   font-size: 2rem;
 }
@@ -320,34 +276,21 @@ input {
   bottom: 0;
   left: 0;
   background: #f9f6ee;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-transition: 1.2s;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: 1.2s;
 }
-
 .loading-modal-title {
   font-size: 5rem;
   font-weight: 600;
 }
-
 @media screen and (min-width: 768px) {
   .loading-modal-title {
     font-size: 6rem;
   }
 }
-
 .loading-modal-subtitle {
   font-weight: 600;
 }
@@ -356,8 +299,7 @@ input {
   position: absolute;
   top: 100px;
   left: 50%;
-  -webkit-transform: translate(-50%, 50%);
-          transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%);
   background: #3cb35a;
   color: #f9f6ee;
   padding: 15px 25px;
@@ -367,14 +309,12 @@ input {
   width: 75%;
   text-align: center;
 }
-
 @media screen and (min-width: 992px) {
   .notification-modal {
     width: auto;
     text-align: left;
   }
 }
-
 .notification-modal-text {
   margin: 0;
   font-weight: 600;
@@ -389,23 +329,13 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 5;
   text-align: center;
 }
-
 .end-screen-modal {
   background: #f9f6ee;
   z-index: 10;
@@ -414,32 +344,25 @@ input {
   width: 85%;
   max-width: 720px;
 }
-
 .end-screen-title {
   font-weight: 600;
 }
-
 .end-screen-text {
   margin-bottom: 5px;
 }
-
 .end-screen .social-icons {
   margin-bottom: 30px;
 }
-
 .end-screen .social-icons a {
   color: #03012c;
   opacity: 0.7;
-  -webkit-transition: 0.3s;
   transition: 0.3s;
   font-size: 1.5rem;
   margin: 0 5px;
 }
-
 .end-screen .social-icons a:hover, .end-screen .social-icons a:focus {
   opacity: 1;
 }
-
 .end-screen-btn {
   background: #3cb35a;
   color: #f9f6ee;
@@ -448,17 +371,14 @@ input {
   border-radius: 8px;
   text-transform: uppercase;
   font-weight: 600;
-  -webkit-transition: 0.3s;
   transition: 0.3s;
   display: inline-block;
   margin-bottom: 10px;
 }
-
 .end-screen-btn:hover, .end-screen-btn:focus {
   background-color: #2f8d47;
   color: #f9f6ee;
 }
-
 .end-screen .overlay {
   position: absolute;
   top: 0;
@@ -469,5 +389,4 @@ input {
   height: 100%;
   background: #03012c;
   opacity: 0.8;
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */
