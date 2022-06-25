@@ -13,12 +13,14 @@ const countryNames = [];
 const datalist = document.querySelector("#countries");
 const input = document.querySelector(".main-country-form input");
 let amountOfGuesses = 0;
+let results = [];
 
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
   json.forEach((name) => {
     let nameWords = catchNames(name.name).toLowerCase().split(" ");
+    results.push(name.name);
     countryNames.push(...nameWords);
     datalist.insertAdjacentHTML(
       "beforeend",
@@ -231,6 +233,7 @@ const notification = (status) => {
 
 const checkCountry = () => {
   let name = input.value.trim().toLowerCase().split(" ");
+  console.log(name);
 
   if (!countryNames.includes(...name)) {
     notification("invalid country");
@@ -276,17 +279,31 @@ input.onfocus = function () {
   input.style.borderRadius = "5px 5px 0 0";
 };
 
-// @TODO: change this function to make it filter the list of options, rather than hide them by showing display none
-input.oninput = function () {
+// input.oninput = function () {
+//   let text = input.value.toLowerCase();
+//   for (let option of datalist.options) {
+//     if (option.value.toLowerCase().indexOf(text) > -1) {
+//       option.style.display = "block";
+//     } else {
+//       option.style.display = "none";
+//     }
+//   }
+// };
+
+input.addEventListener("input", () => {
   let text = input.value.toLowerCase();
-  for (let option of datalist.options) {
-    if (option.value.toLowerCase().indexOf(text) > -1) {
-      option.style.display = "block";
-    } else {
-      option.style.display = "none";
-    }
-  }
-};
+  datalist.innerHTML = "";
+  let filteredResults = results.filter((res) => {
+    return res.toLowerCase().includes(text);
+  });
+  filteredResults.forEach((res) => {
+    datalist.insertAdjacentHTML(
+      "beforeend",
+      `<option value="${res}">${res}</option>`
+    );
+  });
+  console.log(filteredResults);
+});
 
 let currentFocus = -1;
 input.onkeydown = function (e) {
@@ -298,10 +315,11 @@ input.onkeydown = function (e) {
     addActive(datalist.options);
   } else if (e.keyCode == 13) {
     e.preventDefault();
+    console.log(input.value);
     checkCountry();
-    if (currentFocus > -1) {
-      if (datalist.options) datalist.options[currentFocus].click();
-    }
+    input.value = "";
+    datalist.innerHTML = "";
+    currentFocus = -1;
   }
 };
 
@@ -331,6 +349,13 @@ document.addEventListener("click", (e) => {
 
 /**
  * @TODO:
+ *
+ * Country input
+ * - Set the input's value to the country selected from the datalist
+ * - Set the values within the datalist to be those of the countyNames after it's been passed through 'catchNames'
+ * - Remove active class on input when there is no option (after hitting enter), but add it back when the user starts typing again (in the input event listener).
+ *
+ * JavaScript tidy up
  *
  * There are also some countries with incorrect borders:
  * - Cyrpus (says it borders with the UK)
