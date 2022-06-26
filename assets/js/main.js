@@ -189,7 +189,6 @@ const setTwitterMessage = (status) => {
   for (let i = 0; i < amountOfGuesses; i++) {
     emojiMessage.push(borderEmojis[i]);
   }
-  console.log(emojiMessage);
   if (status == "win") {
     endScreenModal.insertAdjacentHTML(
       "beforeend",
@@ -245,7 +244,6 @@ const notification = (status) => {
 
 const checkCountry = () => {
   let name = input.value.trim().toLowerCase().split(" ");
-  console.log(name);
 
   if (!countryNames.includes(...name)) {
     notification("invalid country");
@@ -259,11 +257,9 @@ const checkCountry = () => {
     !mainCountryWords.includes(input.value.toLowerCase())
   ) {
     amountOfGuesses++;
-    console.log(amountOfGuesses);
     revealBorderCountry();
   } else {
     amountOfGuesses++;
-    console.log(amountOfGuesses);
     mainCountry.removeAttribute("hide");
     notification("success");
     mainCountryForm.removeEventListener("submit", checkCountry);
@@ -318,7 +314,6 @@ input.onkeydown = function (e) {
     addActive(datalist.options);
   } else if (e.keyCode == 13) {
     e.preventDefault();
-    console.log(input.value);
     checkCountry();
     input.value = "";
     datalist.innerHTML = "";
