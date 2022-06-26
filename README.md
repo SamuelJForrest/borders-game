@@ -20,6 +20,7 @@ If you would like suggest features for future iterations of the game - feel free
 - Added LinkedIn link to game over screen
 - Removed pointer events from all images to stop user being able to see the flag by dragging the image.
 - Added a new Twitter message when the player is successful. The new message shows how many guesses it took the player to find the mystery country, and emojis of the flags the player had uncovered before guessing.
+
   ![Example of new Twitter message](assets/imgs/screenshots/readme/new-twitter-message.png)
 
   **Credit**: credit to [Risan](https://github.com/risan/country-flag-emoji) for his excellent flag emoji API, which I used - in conjunction with the Rest Countries API - to output the flag emojis.
