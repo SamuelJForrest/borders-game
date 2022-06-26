@@ -14,11 +14,13 @@ const datalist = document.querySelector("#countries");
 const input = document.querySelector(".main-country-form input");
 let amountOfGuesses = 0;
 let results = [];
+let emoji = countryFlagEmoji.data;
+let borderEmojis = [];
 
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
-  json.forEach((name) => {
+  json.forEach((name, i) => {
     let nameWords = catchNames(name.name).toLowerCase().split(" ");
     results.push(name.name);
     countryNames.push(...nameWords);
@@ -130,6 +132,7 @@ const loadBorderCountries = (borderCountry) => {
     const json = await response.json();
     generateBorderCountries(json, index);
     index += 1;
+    borderEmojis.push(countryFlagEmoji.data[json.alpha2Code].emoji);
   });
   loadingModal.classList.add("__animateup");
 };
@@ -182,13 +185,22 @@ const checkWords = (words) => {
 };
 
 const setTwitterMessage = (status) => {
+  let emojiMessage = [];
+  for (let i = 0; i < amountOfGuesses; i++) {
+    emojiMessage.push(borderEmojis[i]);
+  }
+  console.log(emojiMessage);
   if (status == "win") {
     endScreenModal.insertAdjacentHTML(
       "beforeend",
       `
       <a href="https://www.twitter.com/share?text=I guessed the country in ${amountOfGuesses} ${
         amountOfGuesses == 1 ? "guess" : "guesses"
-      }! 🌎%0a%0aChallenge yourself by finding the mystery country based on its neighbours!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle" class="end-screen-btn"
+      }! 🌎%0a%0aThis mystery country borders with:%0a%0a${[
+        ...emojiMessage,
+      ].join(
+        " "
+      )}%0a%0aDo you know the mystery country? Put your geography skills to the test!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle" class="end-screen-btn"
       target="_blank"
       rel="noopener">Tweet</a>
     `
@@ -279,17 +291,6 @@ input.onfocus = function () {
   input.style.borderRadius = "5px 5px 0 0";
 };
 
-// input.oninput = function () {
-//   let text = input.value.toLowerCase();
-//   for (let option of datalist.options) {
-//     if (option.value.toLowerCase().indexOf(text) > -1) {
-//       option.style.display = "block";
-//     } else {
-//       option.style.display = "none";
-//     }
-//   }
-// };
-
 input.addEventListener("input", () => {
   let text = input.value.toLowerCase();
   datalist.innerHTML = "";
@@ -299,10 +300,12 @@ input.addEventListener("input", () => {
   filteredResults.forEach((res) => {
     datalist.insertAdjacentHTML(
       "beforeend",
-      `<option value="${res}">${res}</option>`
+      `<option value="${catchNames(res)}">${catchNames(res)}</option>`
     );
   });
-  console.log(filteredResults);
+  if (filteredResults.length > 0) {
+    datalist.style.display = "block";
+  }
 });
 
 let currentFocus = -1;
@@ -320,6 +323,7 @@ input.onkeydown = function (e) {
     input.value = "";
     datalist.innerHTML = "";
     currentFocus = -1;
+    datalist.style.display = "none";
   }
 };
 
@@ -329,6 +333,7 @@ function addActive(x) {
   if (currentFocus >= x.length) currentFocus = 0;
   if (currentFocus < 0) currentFocus = x.length - 1;
   x[currentFocus].classList.add("active");
+  input.value = x[currentFocus].value;
 }
 function removeActive(x) {
   for (var i = 0; i < x.length; i++) {
