@@ -8,19 +8,22 @@ const notificationModal = document.querySelector(".notification-modal");
 const notificationText = document.querySelector(".notification-modal-text");
 const endScreen = document.querySelector(".end-screen");
 const endScreenModal = document.querySelector(".end-screen-modal");
-const mainCountryWords = [];
-const countryNames = [];
 const datalist = document.querySelector("#countries");
 const input = document.querySelector(".main-country-form input");
+const mainCountryWords = [];
+const countryNames = [];
+const results = [];
+const emoji = countryFlagEmoji.data;
+const borderEmojis = [];
 let amountOfGuesses = 0;
-let results = [];
-let emoji = countryFlagEmoji.data;
-let borderEmojis = [];
 
+/**
+ * Loops through the countries - retrieved from the API - and pushes the names to the required arrays
+ */
 const collectCountryNames = async () => {
   const response = await fetch(`https://restcountries.com/v2/all`);
   const json = await response.json();
-  json.forEach((name, i) => {
+  json.forEach((name) => {
     let nameWords = catchNames(name.name).toLowerCase().split(" ");
     results.push(name.name);
     countryNames.push(...nameWords);
@@ -29,16 +32,18 @@ const collectCountryNames = async () => {
       `<option value="${name.name}">${name.name}</option>`
     );
   });
+
   for (let option of datalist.options) {
     option.addEventListener("click", function () {
       input.value = option.value;
-      datalist.style.display = "none";
-      input.style.borderRadius = "5px";
     });
   }
 };
 collectCountryNames();
 
+/**
+ * Takes a country name, and replaces part of the name to the more commonly known version of the countries name
+ */
 const catchNames = (name) => {
   const splitName = name
     .toLowerCase()
@@ -72,11 +77,17 @@ const catchNames = (name) => {
   return finalName;
 };
 
+/**
+ * Reveals the end screen modal, and stops the user from being able to scroll
+ */
 const revealEndScreen = () => {
   endScreen.classList.remove("d-none");
   document.body.classList.add("__gameover");
 };
 
+/**
+ * Reveals a bordering country per guess - ends the game if the there is no more bordering countries
+ */
 const revealBorderCountry = async () => {
   const countries = document.querySelectorAll(".border-country");
   for (let i = 0; i < countries.length; i++) {
@@ -96,6 +107,9 @@ const revealBorderCountry = async () => {
   }
 };
 
+/**
+ * Loops through the mystery country's bordering country, and appends the HTML for each country
+ */
 const generateBorderCountries = (border, index) => {
   const hidden = index === 0 ? "" : "hide";
   const catchName = catchNames(border.name);
@@ -123,6 +137,9 @@ const generateBorderCountries = (border, index) => {
   );
 };
 
+/**
+ * Loops through and assigns each of the main country's borders
+ */
 const loadBorderCountries = (borderCountry) => {
   let index = 0;
   borderCountry.borders.forEach(async function (country) {
@@ -137,12 +154,18 @@ const loadBorderCountries = (borderCountry) => {
   loadingModal.classList.add("__animateup");
 };
 
+/**
+ * Adds names to main country words array
+ */
 const generateName = (name) => {
   name.forEach((word) => {
     mainCountryWords.push(catchNames(word).toLowerCase());
   });
 };
 
+/**
+ * Loads information about the main country
+ */
 const generateCountry = async (country) => {
   try {
     const response = await fetch(
@@ -161,6 +184,9 @@ const generateCountry = async (country) => {
   }
 };
 
+/**
+ * Retrieves country data from the API and determines the random country
+ */
 const startGame = async () => {
   const response = await fetch("https://restcountries.com/v2/all");
   const json = await response.json();
@@ -184,6 +210,9 @@ const checkWords = (words) => {
   });
 };
 
+/**
+ * Appends a Twitter link to the end screen, with a href dependent on the player's success
+ */
 const setTwitterMessage = (status) => {
   let emojiMessage = [];
   for (let i = 0; i < amountOfGuesses; i++) {
@@ -220,6 +249,9 @@ const setTwitterMessage = (status) => {
   }
 };
 
+/**
+ * Displays feedback to the player based on their actions
+ */
 const notification = (status) => {
   notificationModal.classList.add("__notification");
   notificationModal.addEventListener("animationend", () => {
@@ -242,6 +274,9 @@ const notification = (status) => {
   }
 };
 
+/**
+ * Checks a players guess against the main country
+ */
 const checkCountry = () => {
   let name = input.value.trim().toLowerCase().split(" ");
 
@@ -282,11 +317,13 @@ window.addEventListener("load", () => {
   );
 });
 
+// Display datalist upon input focus
 input.onfocus = function () {
   datalist.style.display = "block";
   input.style.borderRadius = "5px 5px 0 0";
 };
 
+// Filter datalist by user search
 input.addEventListener("input", () => {
   let text = input.value.toLowerCase();
   datalist.innerHTML = "";
@@ -304,6 +341,7 @@ input.addEventListener("input", () => {
   }
 });
 
+// Set focus of current datalist selection (when using keyboard to navigate)
 let currentFocus = -1;
 input.onkeydown = function (e) {
   if (e.keyCode == 40) {
@@ -315,6 +353,7 @@ input.onkeydown = function (e) {
   } else if (e.keyCode == 13) {
     e.preventDefault();
     checkCountry();
+    // reset values once the country has been checked
     input.value = "";
     datalist.innerHTML = "";
     currentFocus = -1;
@@ -322,6 +361,7 @@ input.onkeydown = function (e) {
   }
 };
 
+// Add active class to current datalist option
 function addActive(x) {
   if (!x) return false;
   removeActive(x);
@@ -330,6 +370,8 @@ function addActive(x) {
   x[currentFocus].classList.add("active");
   input.value = x[currentFocus].value;
 }
+
+// Remove active class from other datalist options
 function removeActive(x) {
   for (var i = 0; i < x.length; i++) {
     x[i].classList.remove("active");
@@ -346,20 +388,3 @@ document.addEventListener("click", (e) => {
   datalist.style.display = "none";
   input.style.borderRadius = "0";
 });
-
-/**
- * @TODO:
- *
- * Country input
- * - Set the input's value to the country selected from the datalist
- * - Set the values within the datalist to be those of the countyNames after it's been passed through 'catchNames'
- * - Remove active class on input when there is no option (after hitting enter), but add it back when the user starts typing again (in the input event listener).
- *
- * JavaScript tidy up
- *
- * There are also some countries with incorrect borders:
- * - Cyrpus (says it borders with the UK)
- * - Brazil (says it borders France)
- *
- *
- */
