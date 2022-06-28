@@ -140,6 +140,7 @@ header {
 
 form {
   position: relative;
+  z-index: 3;
 }
 
 label {
@@ -162,6 +163,7 @@ input {
   width: 100%;
   max-height: 200px;
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -231,6 +233,7 @@ input {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 5;
   background: $color-light;
   display: flex;
   flex-direction: column;

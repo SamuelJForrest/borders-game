@@ -204,6 +204,7 @@ header a:hover, header a:focus {
 
 form {
   position: relative;
+  z-index: 3;
 }
 
 label {
@@ -275,6 +276,7 @@ input {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 5;
   background: #f9f6ee;
   display: flex;
   flex-direction: column;
