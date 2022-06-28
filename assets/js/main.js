@@ -238,7 +238,7 @@ const setTwitterMessage = (status) => {
       "beforeend",
       `
       <a
-      href="https://www.twitter.com/share?text=I'm playing Bordle! 🌍 Challenge yourself by finding the mystery country based on its neighbours!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle"
+      href="https://www.twitter.com/share?text=I'm playing Bordle! 🌍%0a%0aChallenge yourself by finding the mystery country based on its neighbours!%0a%0aDeveloped by @samueljforrest 🏴󠁧󠁢󠁷󠁬󠁳󠁿%0a%0aYou can play it here:&url=https://www.bordle.app%0a&hashtags=Bordle"
       class="end-screen-btn"
       target="_blank"
       rel="noopener"
